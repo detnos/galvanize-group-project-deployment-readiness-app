@@ -15,10 +15,11 @@ public class User {
     String unit;
     String base;
     String afsc;
-    String roleId;
+    Integer roleId;
+    Integer roleHeiararchy;
     String email;
     String password;
-    String rank;
+    String grade;
 
     public Long getId() {
         return id;
@@ -76,12 +77,20 @@ public class User {
         this.afsc = afsc;
     }
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public Integer getRoleHeiararchy() {
+        return roleHeiararchy;
+    }
+
+    public void setRoleHeiararchy(Integer roleHeiararchy) {
+        this.roleHeiararchy = roleHeiararchy;
     }
 
     public String getEmail() {
@@ -100,11 +109,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRank() {
-        return rank;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setRank(String rank) {
-        this.rank = rank;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 }
