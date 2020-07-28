@@ -1,6 +1,7 @@
 package com.galvanize.RecallRoster;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -11,7 +12,7 @@ public class User {
     private Long id;
     String firstName;
     String lastName;
-    int edipi;
+    Integer edipi;
     String unit;
     String base;
     String afsc;
@@ -45,11 +46,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getEdipi() {
+    public Integer getEdipi() {
         return edipi;
     }
 
-    public void setEdipi(int edipi) {
+    public void setEdipi(Integer edipi) {
         this.edipi = edipi;
     }
 
