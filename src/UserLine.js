@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card, Row } from 'react-bootstrap';
 
 function UserLine(props) {
     console.log("roleId: ", props.user.roleId)
@@ -6,18 +7,20 @@ function UserLine(props) {
 
     return (
         <div>
-            <div className={"grid-item user user-id-" + props.user.roleId + " user-heiararchy-" + props.user.roleHeiararchy}>
-                <div id={props.user.id} >{props.user.id}</div>
-                <div id={props.user.firstName} >{props.user.firstName}</div>
-                <div id={props.user.lastName} >{props.user.lastName}</div>
-                <div id={props.user.afsc} >{props.user.afsc}</div>
-                <div id={props.user.base} >{props.user.base}</div>
-                <div id={props.user.unit} >{props.user.unit}</div>
-                <div id={props.user.email} >{props.user.phone}</div>
-                <div id={props.user.email} >{props.user.email}</div>
-                <div id={props.user.roleId} >{roleStr}</div>
-                <div id={props.user.roleHeiararchy} >{props.user.roleHeiararchy}</div>
-            </div>
+            <Row className="justify-content-md-center">
+                <Card border="primary" style={{ width: '18rem' }}>
+                    <Card.Header>{roleStr}</Card.Header>
+                    <Card.Body>
+                        <Card.Title>{props.user.grade} {props.user.firstName} {props.user.lastName}</Card.Title>
+                        <Card.Text>
+                            {props.user.afsc}<br />
+                            {props.user.phone}<br />
+                            {props.user.email}<br />
+                            {props.user.unit}<br />
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Row>
             <br />
         </div>
     )
