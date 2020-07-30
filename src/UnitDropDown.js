@@ -3,10 +3,14 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 function UserDropDown(props) {
 
+    const handleSelect = (e) => {
+        props.handleSelect(e);
+    }
+
 return (
-        <DropdownButton id="dropdown-basic-button" title="Choose a roster to view">
+    <DropdownButton id="dropdown-basic-button" title="Choose a roster to view" onSelect={handleSelect}>
             {props.units.map((unit, index) => 
-                <Dropdown.Item href={"#/action-" + index + 1}>{unit.unit}</Dropdown.Item>
+                <Dropdown.Item eventKey={index + 1}>{unit.unit}</Dropdown.Item>
             )}
         </DropdownButton>
     )

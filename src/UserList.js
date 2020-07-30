@@ -1,6 +1,5 @@
 import React from 'react'
 import UserLine from './UserLine';
-import { Button, ButtonGroup, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 function UserList(props) {
     const placement = ['bottom-start', 'bottom', 'bottom-end']

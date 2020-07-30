@@ -64,8 +64,8 @@ class NewUser extends React.Component {
     }
 
     handleSubmit(event) {
-        if (!this.state.roleId) this.state.roleId = "0";
-        if (!this.state.roleHeiararchy) this.state.roleHeiararchy = "1";
+        if (!this.state.roleId) this.setState({RoleId: 0});
+        if (!this.state.roleHeiararchy) this.setState({ RoleHeiararchy: 1 });
         this.postUser(this.state.firstName, this.state.lastName, this.state.edipi, this.state.unit, this.state.base, this.state.afsc, this.state.roleId, this.state.roleHeiararchy, this.state.phone, this.state.email, this.state.password, this.state.grade);
         event.preventDefault();
     }
