@@ -3,10 +3,12 @@ import React from 'react';
 import './App.css';
 import UserList from './UserList';
 import NewUser from './NewUser';
+import StyledTree from './StyledTree';
 import UnitDropDown from './UnitDropDown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import { Modal, Navbar} from 'react-bootstrap';
+import { Tree, TreeNode } from 'react-organizational-chart';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,7 +48,7 @@ class App extends React.Component {
         return this.setState({ users: json, units: unitsArr }) 
       })
   }
-
+  
   handleClose = () => this.setState({show: false});
   handleShow = () => this.setState({ show: true });
   handleSelect = (e) => {
@@ -104,6 +106,7 @@ class App extends React.Component {
               <Modal.Body><NewUser roles={this.state.roles} /></Modal.Body>
             </Modal>
             <UserList users={this.state.users} roles={this.state.roles} />
+          <StyledTree users={this.state.users} roles={this.state.roles} />
         </div>
     )
   }
