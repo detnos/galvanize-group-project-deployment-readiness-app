@@ -2,7 +2,6 @@ import React from 'react'
 import UserLine from './UserLine';
 
 function UserList(props) {
-    const placement = ['bottom-start', 'bottom', 'bottom-end']
     return (
 
         <React.Fragment>

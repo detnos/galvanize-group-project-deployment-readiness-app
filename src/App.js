@@ -1,14 +1,14 @@
 import React from 'react';
 
 import './App.css';
-import UserList from './UserList';
 import NewUser from './NewUser';
-import StyledTree from './StyledTree';
+import WingTree from './WingTree';
+import GroupTree from './GroupTree';
+import SquadronTree from './SquadronTree';
 import UnitDropDown from './UnitDropDown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import { Modal, Navbar} from 'react-bootstrap';
-import { Tree, TreeNode } from 'react-organizational-chart';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +18,8 @@ class App extends React.Component {
       users: [],
       units: [],
       usersInView: [],
+      viewTitle: "",
+      usersInViewType: "",
       show: false,
     }
     this.fetchRoles = this.fetchRoles.bind(this)
@@ -44,6 +46,7 @@ class App extends React.Component {
             unitsObj[unit] = 1;
             unitsArr.push({'base': user.base, 'type': unit.substring(unit.length - 2), 'unit' : unit})
           }
+          return user
         })  
         return this.setState({ users: json, units: unitsArr }) 
       })
@@ -52,29 +55,29 @@ class App extends React.Component {
   handleClose = () => this.setState({show: false});
   handleShow = () => this.setState({ show: true });
   handleSelect = (e) => {
-    console.log("e-1: ", e - 1);
-    console.log(this.state.units[Number(e)-1].unit);
+    this.setState({ usersInViewType: "" });
     let filteredUsers;
     let wg = /wing/i;
     let gp = /gp/i;    
     if (wg.test(this.state.units[Number(e) - 1].unit)) {
       //if wg lvl get all in wing and below
-      console.log("wing match")
+      this.setState({usersInViewType : "Wing"});
       filteredUsers = this.state.users.filter(user => {
         return user.base === this.state.units[Number(e) - 1].base && [1, 2, 4].indexOf(user.roleId) >= 0;
       })
     } else if (gp.test(this.state.units[Number(e) - 1].unit)) {
       //if gp lvl get all in gp and below
-      console.log("gp match")
+      this.setState({ usersInViewType: "Group" });
       //TODO include a way to know which sqs are in which unit (so far this only matches exactly)
       filteredUsers = this.state.users.filter(user => {
       return user.unit === this.state.units[Number(e) - 1].unit
       })
     } else {
     //if sq lvl just match sq exactly
+      this.setState({ usersInViewType: "Squadron" });
     filteredUsers = this.state.users.filter(user => user.unit === this.state.units[Number(e) - 1].unit)
     }
-    return this.setState({usersInView : filteredUsers});
+    return this.setState({ usersInView: filteredUsers, viewTitle: this.state.units[Number(e) - 1].unit + " Recall Roster"});
   }
 
   render() {
@@ -88,10 +91,10 @@ class App extends React.Component {
     return (
       this.state.users.length === 0 ? 
         "Loading..." 
-      :
+      : 
         <div className="App grid-container">
           <Navbar bg="dark" variant="dark">
-            <Button inline variant="primary" onClick={this.handleShow}>
+            <Button inlin="true" variant="primary" onClick={this.handleShow}>
               Add a new user
             </Button>
             <Navbar.Collapse className="justify-content-end">
@@ -99,14 +102,20 @@ class App extends React.Component {
             </Navbar.Collapse>
           </Navbar>
           <br />
-            <Modal show={this.state.show} onHide={this.handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Add a new user</Modal.Title>
-              </Modal.Header>
-              <Modal.Body><NewUser roles={this.state.roles} /></Modal.Body>
-            </Modal>
-            <UserList users={this.state.users} roles={this.state.roles} />
-          <StyledTree users={this.state.users} roles={this.state.roles} />
+          <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add a new user</Modal.Title>
+            </Modal.Header>
+            <Modal.Body><NewUser roles={this.state.roles} /></Modal.Body>
+          </Modal>
+          <h3>{this.state.viewTitle} </h3>
+          {this.state.usersInViewType === "" ?
+            "" :
+            this.state.usersInViewType === "Wing" ?
+              <WingTree users={this.state.usersInView} roles={this.state.roles} /> :
+              this.state.usersInViewType === "Group" ?
+                <GroupTree users={this.state.usersInView} roles={this.state.roles} /> :
+                <SquadronTree users={this.state.usersInView} roles={this.state.roles} />}
         </div>
     )
   }

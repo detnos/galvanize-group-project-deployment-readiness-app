@@ -10,7 +10,7 @@ function UserDropDown(props) {
 return (
     <DropdownButton id="dropdown-basic-button" title="Choose a roster to view" onSelect={handleSelect}>
             {props.units.map((unit, index) => 
-                <Dropdown.Item eventKey={index + 1}>{unit.unit}</Dropdown.Item>
+                <Dropdown.Item key={index} eventKey={index + 1}>{unit.unit}</Dropdown.Item>
             )}
         </DropdownButton>
     )

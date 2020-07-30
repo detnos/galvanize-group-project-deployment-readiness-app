@@ -2,12 +2,11 @@ import React from 'react'
 import { Card, Row } from 'react-bootstrap';
 
 function UserLine(props) {
-    console.log("roleId: ", props.user.roleId)
+    console.log("user: ", props.user)
     let roleStr = props.user.roleId === 0 ? "" : props.roles[props.user.roleId - 1].role
 
     return (
-        <div>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center" >
                 <Card border="primary" style={{ width: '13rem' }}>
                     <Card.Header>{roleStr}<br />{props.user.unit}</Card.Header>
                     <Card.Body>
@@ -20,8 +19,6 @@ function UserLine(props) {
                     </Card.Body>
                 </Card>
             </Row>
-            <br />
-        </div>
     )
 }
 
