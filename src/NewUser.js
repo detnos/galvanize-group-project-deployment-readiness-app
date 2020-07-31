@@ -42,8 +42,6 @@ class NewUser extends React.Component {
             "grade": grade
         };
 
-        console.log(user);
-
         const options = {
             method: 'POST',
             body: JSON.stringify(user),
@@ -58,7 +56,6 @@ class NewUser extends React.Component {
     }
 
     handleChange(event) {
-        console.log(event.target.name);
         this.setState({...this.state,
             [event.target.name]: event.target.value });
     }
